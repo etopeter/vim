@@ -35,9 +35,15 @@ set cindent
 set smartindent
 set autoindent
 set expandtab
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set number
 
 
 map <F5> :setlocal spell! spelllang=en_us<cr>
 map <F6> :setlocal spell! spelllang=de<cr>
+
+
+" ctrlp Plugin set working directory where is .git
+let g:ctrlp_working_path_mode = 'ra'
