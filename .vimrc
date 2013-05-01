@@ -31,6 +31,8 @@ let php_sql_query=1
 let php_htmlInStrings=1
 
 
+set ai "Auto indent
+set si "Smart indent
 set cindent
 set smartindent
 set autoindent
@@ -39,6 +41,10 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set number
+set ruler
+
+" Move outside brackets
+inoremap <C-r> <C-o>A
 
 
 map <F5> :setlocal spell! spelllang=en_us<cr>
