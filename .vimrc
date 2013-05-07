@@ -2,7 +2,12 @@
 execute pathogen#infect()
 
 " Vundle 
+if has("unix")
 set rtp+=~/.vim/bundle/vundle/
+elseif has("win32")
+set rtp+=c:\opt\vim\vim73\bundle\vundle
+endif
+
 call vundle#rc()
 
 " Let Vundle manage Vundle (required)!
@@ -35,6 +40,7 @@ Bundle 'vim-scripts/upAndDown'
 Bundle 'xolox/vim-notes'
 Bundle 'xoria256.vim'
 Bundle 'SirVer/ultisnips'
+Bundle 'Lokaltog/vim-powerline'
 "Bundle 'xolox/vim-shell'
 
 filetype plugin indent on
@@ -54,9 +60,6 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 
 map <Leader>n :NERDTreeToggle<CR>
 
-map <Leader>ev :tabe ~/.vimrc<CR>
-map <Leader>sv :source ~/.vimrc<CR>
-map <Leader>bi :source ~/.vimrc<CR>:BundleInstall<CR>
 
 map <Leader>rn :RecentNotes<CR>
 map <Leader>cn :tabedit note:coding-notes<cr>
@@ -69,8 +72,20 @@ map <Leader>gs :Gstatus<CR>
 map <Leader>tg :TlistToggle<CR>
 "map <Leader>bt :TMiniBufExplorer<CR>
 
+
+if has("unix")
+map <Leader>ev :tabe ~/.vimrc<CR>
+map <Leader>sv :source ~/.vimrc<CR>
+map <Leader>bi :source ~/.vimrc<CR>:BundleInstall<CR>
+elseif has("win32")
+map <Leader>ev :tabe c:\opt\vim\.vimrc<CR>
+map <Leader>sv :source c:\opt\vim\.vimrc<CR>
+map <Leader>bi :source c:\opt\vim\.vimrc<CR>:BundleInstall<CR>
+map <Leader>es :tabe C:\Users\strzyzewskip\AppData\Local\Programs\Git\etc\ssh\ssh_config<CR>
+endif
+
 " Color Scheme
-colorscheme xoria256
+" colorscheme xoria256
 
 set ai "Auto indent
 set si "Smart indent
@@ -83,6 +98,9 @@ set softtabstop=4
 set shiftwidth=4
 set number
 set ruler
+
+" No Bells
+set noeb vb t_vb=
 
 "mapr ctrl-tab to shift-tab
 :let g:UltiSnipsListSnippets="<c-s-tab>"
@@ -97,6 +115,7 @@ set ruler
 let g:snips_author = 'Piotr Strzyzewski'
 g:UltiSnipsExpandTrigger <tab>
 g:UltiSnipsListSnippets <c-tab>
+let g:UltiSnipsUsePythonVersion = 2
 
 filetype plugin on
 au FileType php set omnifunc=phpcomplete#CompletePHP
@@ -145,11 +164,13 @@ map <F6> :setlocal spell! spelllang=de<cr>
 " ctrlp Plugin set working directory where is .git
 let g:ctrlp_working_path_mode = 'ra'
 " Syntastic
- let g:syntastic_check_on_open=1
- let g:syntastic_enable_signs=1 " Put errors on left side
- let g:syntastic_quiet_warnings=1 " Only errors, not warnings please
- let g:syntastic_auto_loc_list=2 " Only show errors when I ask
- let g:syntastic_disabled_filetypes = ['html', 'js']
+let g:syntastic_check_on_open=1
+let g:syntastic_enable_signs=1 " Put errors on left side
+let g:syntastic_quiet_warnings=1 " Only errors, not warnings please
+let g:syntastic_auto_loc_list=2 " Only show errors when I ask
+let g:syntastic_disabled_filetypes = ['html', 'js']
+let g:syntastic_php_checkers=['php','phpmd']
+", 'phpcs', 'phpmd']
 
 " Syntastic styles
 if has('unix')
@@ -216,3 +237,4 @@ imap \<F7> <esc>\<F7>i
 
 :nnoremap + /\$\w\+_<CR>
 :nnoremap _ f_x~
+
